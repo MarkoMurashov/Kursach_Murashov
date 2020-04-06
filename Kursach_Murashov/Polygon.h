@@ -1,0 +1,26 @@
+#include "Figure.h"
+
+[Serializable]
+#pragma once
+ref class Polygon: public Figure
+{
+private:
+	cliext::list<Point> points;
+	cliext::list<Point> initialPoints;
+	cliext::list<Point> deformPoints;
+public:
+	Polygon(String^ name, Color color, cliext::list<Point> points);
+	void Draw(System::Drawing::Graphics^ g) override;
+	Figure^ Clone() override;
+	void Move(float x, float y, float maxX, float maxY) override;
+	void Reset() override;
+	bool CanMove(Point p, float x, float y, float maxX, float maxY) override;
+	bool CanMove(Figure^ f, float x, float y, float maxX, float maxY) override;
+
+	float MinX() override;
+	float MaxX() override;
+	float MinY() override;
+	float MaxY() override;
+	void Deformation() override;
+};
+
