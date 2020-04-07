@@ -5,11 +5,11 @@
 ref class Polygon: public Figure
 {
 private:
-	cliext::list<Point> points;
-	cliext::list<Point> initialPoints;
-	cliext::list<Point> deformPoints;
+	List<Point>^ points = gcnew List<Point>;
+	List<Point>^ initialPoints = gcnew List<Point>;;
+	List<Point>^ deformPoints = gcnew List<Point>;;
 public:
-	Polygon(String^ name, Color color, cliext::list<Point> points);
+	Polygon(String^ name, Color color, List<Point>^ points);
 	void Draw(System::Drawing::Graphics^ g) override;
 	Figure^ Clone() override;
 	void Move(float x, float y, float maxX, float maxY) override;

@@ -18,6 +18,7 @@ namespace CppCLRWinformsProjekt {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::IO;
 
 	/// <summary>
 	/// Zusammenfassung fьr Form1
@@ -29,7 +30,7 @@ namespace CppCLRWinformsProjekt {
 		{
 			InitializeComponent();
 			scene = Scene::CreateScene(this->pictureBox1);
-			fSaver = gcnew FigureSaver(scene, "\\figures.txt");
+			fSaver = gcnew FigureSaver(scene, Directory::GetCurrentDirectory() + "\\figures.txt");
 			this->BackgroundImage = Image::FromFile("fon.jpg");
 			pictureBoxDrawCircle->BackgroundImage = Image::FromFile("circle.png");
 			pictureBoxDrawSquare->BackgroundImage = Image::FromFile("sq.jpg");
@@ -749,6 +750,7 @@ namespace CppCLRWinformsProjekt {
 		Scene::AddFigure(circle);
 
 		checkedListBoxFigures->Items->Add(circle->Name);
+		Scene::Clear(pictureBox1);
 		Scene::Draw(pictureBox1);
 	}
 	private: System::Void pictureBoxDrawSquare_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -762,6 +764,7 @@ namespace CppCLRWinformsProjekt {
 		Scene::AddFigure(square);
 
 		checkedListBoxFigures->Items->Add(square->Name);
+		Scene::Clear(pictureBox1);
 		Scene::Draw(pictureBox1);
 	}
 	private: System::Void pictureBoxDrawTriangle_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -771,15 +774,16 @@ namespace CppCLRWinformsProjekt {
 		Point point3(150, 200);
 		String^ name = "DEFAULT TRIANGLE";
 
-		cliext::list<Point> points;
-		points.push_front(point1);
-		points.push_front(point2);
-		points.push_front(point3);
+		List<Point>^ points = gcnew List<Point>;
+		points->Add(point1);
+		points->Add(point2);
+		points->Add(point3);
 
 		Figure^ polygon = gcnew Polygon(name, Color::Blue,points);
 		Scene::AddFigure(polygon);
 
 		checkedListBoxFigures->Items->Add(polygon->Name);
+		Scene::Clear(pictureBox1);
 		Scene::Draw(pictureBox1);
 	}
 	//========================================
@@ -823,14 +827,14 @@ namespace CppCLRWinformsProjekt {
 			return;
 		}
 
-		cliext::list<Point> points;
+		List<Point>^ points = gcnew List<Point>;
 
 		for each (String ^ coords in textBoxPolygon->Text->Split({ ';' }))
 		{
 			cli::array<String^>^ coordXY = coords->Split({ ',' });
 
 			Point point(Convert::ToSingle(coordXY[0]), Convert::ToSingle(coordXY[1]));
-			points.push_front(point);
+			points->Add(point);
 		}
 
 		Figure^ polygon = gcnew Polygon(textBoxPolygonName->Text, Color::Blue, points);
@@ -868,18 +872,21 @@ namespace CppCLRWinformsProjekt {
 		{
 			checkedListBoxFigures->Items->Remove(name);
 		}
+
+		Scene::Clear(pictureBox1);
+		Scene::Draw(pictureBox1);
 	}
 	//merge
 	private: System::Void buttonMerge_Click(System::Object^ sender, System::EventArgs^ e) 
 	{
 
-		cliext::list<Figure^> figures;
+		List<Figure^>^ figures = gcnew List<Figure^>;
 		cliext::list<String^> strToDelete;
 		for each (String ^ name in checkedListBoxFigures->CheckedItems)
 		{
 			Figure^ f = Scene::FindFigure(name);
 			if (f != nullptr) {
-				figures.push_front(f);
+				figures->Add(f);
 				strToDelete.push_front(name);
 			}
 		}
@@ -894,6 +901,7 @@ namespace CppCLRWinformsProjekt {
 		Scene::AddFigure(composite);
 
 		checkedListBoxFigures->Items->Add(composite->Name);
+		Scene::Clear(pictureBox1);
 		Scene::Draw(pictureBox1);
 	}
 	//change color

@@ -15,18 +15,11 @@ FigureSaver::FigureSaver(Scene^ sc, String^ path)
 void FigureSaver::Create()
 {
 	fg = scene->CreateMemento();
-	String^ localPath = Directory::GetCurrentDirectory() + "\\Figures";
-
-	if (!Directory::Exists(localPath))
+	if (!File::Exists(path))
 	{
-		Directory::CreateDirectory(localPath);
-	}
-	if (!File::Exists(localPath + path))
-	{
-		FileStream^ stream = gcnew FileStream(localPath + path, FileMode::Create);
+		FileStream^ stream = gcnew FileStream(path, FileMode::Create);
 		stream->Close();
 	}
-	path = localPath + path;
 
 	FileStream^ stream = gcnew FileStream(path, FileMode::Open);
 	BinaryFormatter^ bf = gcnew BinaryFormatter();
@@ -34,19 +27,12 @@ void FigureSaver::Create()
 	stream->Close();
 }
 void FigureSaver::Undo()
-{
-	String^ localPath = Directory::GetCurrentDirectory() + "\\Figures";
-
-	if (!Directory::Exists(localPath))
+{	
+	if (!File::Exists(path))
 	{
-		Directory::CreateDirectory(localPath);
-	}
-	if (!File::Exists(localPath + path))
-	{
-		FileStream^ stream = gcnew FileStream(localPath + path, FileMode::Create);
+		FileStream^ stream = gcnew FileStream(path, FileMode::Create);
 		stream->Close();
 	}
-	path = localPath + path;
 
 	FileStream^ stream = gcnew FileStream(path, FileMode::Open);
 	BinaryFormatter^ bf = gcnew BinaryFormatter();

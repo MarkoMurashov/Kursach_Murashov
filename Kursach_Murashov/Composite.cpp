@@ -2,12 +2,12 @@
 #include "Composite.h"
 #include "Figure.h"
 
-Composite::Composite(String^ name, cliext::list<Figure^> figures)
+Composite::Composite(String^ name, List<Figure^>^ figures)
 	:Figure(name)
 {
 	for each (Figure ^ f in figures)
 	{
-		this->figures.push_front(f->Clone());
+		this->figures->Add(f->Clone());
 	}
 }
 
@@ -71,7 +71,7 @@ void Composite::ChangeAutoCoef()
 
 float Composite::MinX()
 {
-	float min = 0;
+	float min = figures[0]->MinX();;
 	for each (Figure ^ f in figures)
 	{
 		float fMin = f->MinX();
@@ -86,11 +86,11 @@ float Composite::MinX()
 
 float Composite::MaxX()
 {
-	float max = 0;
+	float max = figures[0]->MaxX();
 	for each (Figure ^ f in figures)
 	{
 		float fMax = f->MaxX();
-		if (max < fMax)
+		if (fMax > max)
 		{
 			max = fMax;
 		}
@@ -101,7 +101,7 @@ float Composite::MaxX()
 
 float Composite::MinY()
 {
-	float min = 0;
+	float min = figures[0]->MinY();
 	for each (Figure ^ f in figures)
 	{
 		float fMin = f->MinY();
@@ -116,7 +116,7 @@ float Composite::MinY()
 
 float Composite::MaxY()
 {
-	float max = 0;
+	float max = figures[0]->MaxY();;
 	for each (Figure ^ f in figures)
 	{
 		float fMax = f->MaxY();

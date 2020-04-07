@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Polygon.h"
 
-Polygon::Polygon(String^ name, Color color, cliext::list<Point> points)
+Polygon::Polygon(String^ name, Color color, List<Point>^ points)
 	:Figure(name,color)
 {
 	this->points = points;
@@ -9,7 +9,7 @@ Polygon::Polygon(String^ name, Color color, cliext::list<Point> points)
 	for each (Point p in points)
 	{
 		Point newP(p.X * 0.5f, p.Y * 0.5f);
-		deformPoints.push_front(newP);
+		deformPoints->Add(newP);
 	}
 }
 
@@ -17,8 +17,8 @@ void Polygon::Draw(System::Drawing::Graphics^ g)
 {
 	Brush^ brush = gcnew SolidBrush(CurrentColor);
 
-	g->FillPolygon(brush, points.to_array());
-	g->DrawPolygon(gcnew Pen(System::Drawing::Color::Black), points.to_array());
+	g->FillPolygon(brush, points->ToArray());
+	g->DrawPolygon(gcnew Pen(System::Drawing::Color::Black), points->ToArray());
 	
 }
 
@@ -29,7 +29,7 @@ Figure^ Polygon::Clone()
 
 void Polygon::Move(float x, float y, float maxX, float maxY)
 {
-	cliext::list<Point> newPoint;
+	List<Point>^ newPoint = gcnew List<Point>;
 	bool canMove = true;
 	for each (Point p in points)
 	{
@@ -39,7 +39,7 @@ void Polygon::Move(float x, float y, float maxX, float maxY)
 			break;
 		}
 		Point newP(p.X + x, p.Y + y);
-		newPoint.push_front(newP);
+		newPoint->Add(newP);
 	}
 
 	if (canMove) 
@@ -75,7 +75,7 @@ bool Polygon::CanMove(Figure^ f, float x, float y, float maxX, float maxY)
 
 float Polygon::MinX()
 {
-	float min = 0;
+	float min = points[0].X;
 	for each (Point p in points)
 	{
 		if (min > p.X)
@@ -89,7 +89,7 @@ float Polygon::MinX()
 
 float Polygon::MaxX()
 {
-	float max = 0;
+	float max = points[0].X;
 	for each (Point p in points)
 	{
 		if (max < p.X)
@@ -103,7 +103,7 @@ float Polygon::MaxX()
 
 float Polygon::MinY()
 {
-	float min = 0;
+	float min = points[0].Y;
 	for each (Point p in points)
 	{
 		if (min > p.Y)
@@ -117,7 +117,7 @@ float Polygon::MinY()
 
 float Polygon::MaxY()
 {
-	float max = 0;
+	float max = points[0].Y;
 	for each (Point p in points)
 	{
 		if (max > p.Y)
@@ -131,7 +131,7 @@ float Polygon::MaxY()
 
 void Polygon::Deformation()
 {
-	cliext::list<Point> tmp = deformPoints;
+	List<Point>^ tmp = deformPoints;
 	deformPoints = points;
 	points = deformPoints;	
 }

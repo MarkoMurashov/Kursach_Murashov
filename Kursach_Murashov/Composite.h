@@ -6,9 +6,9 @@ ref class Composite :  Figure
 {
 
 private:
-	cliext::list<Figure^> figures;
+	List<Figure^>^ figures = gcnew List<Figure^>;
 public:
-	Composite(String^ name, cliext::list<Figure^> figures);
+	Composite(String^ name, List<Figure^>^ figures);
 	void Draw(System::Drawing::Graphics^ g) override;
 	Figure^ Clone() override;
 	void ChangeColor(Color color) override;
