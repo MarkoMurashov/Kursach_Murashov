@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Composite.h" />
+    <ClInclude Include="DefaultFigureFactory.h" />
     <ClInclude Include="Figure.h" />
     <ClInclude Include="FigureMemento.h" />
     <ClInclude Include="FigureSaver.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Composite.cpp" />
     <ClCompile Include="CppCLR_WinformsProjekt.cpp" />
+    <ClCompile Include="DefaultFigureFactory.cpp" />
     <ClCompile Include="Figure.cpp" />
     <ClCompile Include="FigureMemento.cpp" />
     <ClCompile Include="FigureSaver.cpp" />

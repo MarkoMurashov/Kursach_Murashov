@@ -23,5 +23,6 @@ public:
 	float MinY() override;
 	float MaxY() override;
 	void Deformation() override;
+	void Draw(System::Drawing::Graphics^ g, float x, float y) override;
 };
 

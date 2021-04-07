@@ -20,6 +20,7 @@ void Circle::Draw(System::Drawing::Graphics^ g)
 	g->DrawEllipse(gcnew Pen(System::Drawing::Color::Black), (float)CurrentPoint.X, (float)CurrentPoint.Y, currentWidth, currentHeight);
 }
 
+
 Figure^ Circle::Clone()
 {
 	return gcnew Circle(Name, CurrentPoint, CurrentColor, currentWidth, currentHeight);
@@ -61,4 +62,12 @@ void Circle::Deformation()
 	tmp = currentHeight;
 	currentHeight = deformHeight;
 	deformHeight = tmp;
+}
+
+void Circle::Draw(System::Drawing::Graphics^ g, float x, float y)
+{
+	Brush^ brush = gcnew SolidBrush(CurrentColor);
+
+	g->FillEllipse(brush, x, y, currentWidth, currentHeight);
+	g->DrawEllipse(gcnew Pen(System::Drawing::Color::Black), x, y, currentWidth, currentHeight);
 }

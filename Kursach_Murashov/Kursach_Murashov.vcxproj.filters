@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Quelldateien\Models">
+      <UniqueIdentifier>{9ce3713e-a297-4ce8-812c-5d4ed6fc4ef1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Quelldateien\Business logic">
+      <UniqueIdentifier>{4176b17c-ac33-4785-8428-b1be3b00cb8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Models">
+      <UniqueIdentifier>{dbc2a88d-4183-404e-a925-24864c47fd0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Business logic">
+      <UniqueIdentifier>{1a27f18d-5526-4c00-969c-251b87003b05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc">
@@ -32,26 +44,29 @@
     <ClInclude Include="Scene.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Figure.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Square.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Circle.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Polygon.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Models</Filter>
     </ClInclude>
     <ClInclude Include="Composite.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Models</Filter>
     </ClInclude>
-    <ClInclude Include="FigureSaver.h">
-      <Filter>Headerdateien</Filter>
+    <ClInclude Include="Figure.h">
+      <Filter>Headerdateien\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Square.h">
+      <Filter>Headerdateien\Models</Filter>
     </ClInclude>
     <ClInclude Include="FigureMemento.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Headerdateien\Business logic</Filter>
+    </ClInclude>
+    <ClInclude Include="FigureSaver.h">
+      <Filter>Headerdateien\Business logic</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultFigureFactory.h">
+      <Filter>Headerdateien\Business logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Polygon.h">
+      <Filter>Headerdateien\Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -67,28 +82,31 @@
     <ClCompile Include="MainForm.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Quelldateien</Filter>
+    <ClCompile Include="Circle.cpp">
+      <Filter>Quelldateien\Models</Filter>
     </ClCompile>
     <ClCompile Include="Figure.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Square.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Circle.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\Models</Filter>
     </ClCompile>
     <ClCompile Include="Polygon.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>Quelldateien\Models</Filter>
     </ClCompile>
-    <ClCompile Include="Composite.cpp">
-      <Filter>Quelldateien</Filter>
+    <ClCompile Include="Square.cpp">
+      <Filter>Quelldateien\Models</Filter>
     </ClCompile>
-    <ClCompile Include="FigureSaver.cpp">
-      <Filter>Quelldateien</Filter>
+    <ClCompile Include="DefaultFigureFactory.cpp">
+      <Filter>Quelldateien\Business logic</Filter>
     </ClCompile>
     <ClCompile Include="FigureMemento.cpp">
+      <Filter>Quelldateien\Business logic</Filter>
+    </ClCompile>
+    <ClCompile Include="FigureSaver.cpp">
+      <Filter>Quelldateien\Business logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Composite.cpp">
+      <Filter>Quelldateien\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

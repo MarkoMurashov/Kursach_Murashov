@@ -9,6 +9,7 @@
 #include "Polygon.h"
 #include "Composite.h"
 #include "FigureSaver.h";
+#include "DefaultFigureFactory.h"
 
 namespace CppCLRWinformsProjekt {
 
@@ -35,10 +36,13 @@ namespace CppCLRWinformsProjekt {
 			pictureBoxDrawCircle->BackgroundImage = Image::FromFile("circle.png");
 			pictureBoxDrawSquare->BackgroundImage = Image::FromFile("sq.jpg");
 			pictureBoxDrawTriangle->BackgroundImage = Image::FromFile("tr.png");
-			pictureBoxDrawSimple->BackgroundImage = Image::FromFile("paint.png");
-			pictureBoxDrawPolygon->BackgroundImage = Image::FromFile("paint.png");
 			pictureBoxShowHide->BackgroundImage = Image::FromFile("eye.png");
 			pictureBoxChangeColor->BackgroundImage = Image::FromFile("edit.png");
+			defFactory = gcnew DefaultFigureFactory();
+			pictureBoxDefComp->BackgroundImage = Image::FromFile("comp.png");
+			pictureBoxCircleNotDef->BackgroundImage = Image::FromFile("circle.png");
+			pictureBoxSquareNotDef->BackgroundImage = Image::FromFile("sq.jpg");
+			pictureBoxPolygonNotDef->BackgroundImage = Image::FromFile("tr.png");
 		}
 
 	protected:
@@ -54,25 +58,25 @@ namespace CppCLRWinformsProjekt {
 		}
 	private: System::Windows::Forms::PictureBox^ pictureBox1;
 
-	private: System::Windows::Forms::Label^ labelX;
-	private: System::Windows::Forms::Label^ labelY;
 
 
-	private: System::Windows::Forms::Label^ labelHeight;
-
-	private: System::Windows::Forms::Label^ labelWidth;
-
-	private: System::Windows::Forms::TextBox^ textBoxXCoord;
-	private: System::Windows::Forms::TextBox^ textBoxYCoord;
-	private: System::Windows::Forms::TextBox^ textBoxWidth;
-	private: System::Windows::Forms::TextBox^ textBoxHeight;
-
-	private: System::Windows::Forms::RadioButton^ radioButtonEllipse;
 
 
-	private: System::Windows::Forms::RadioButton^ radioButtonSquare;
 
-	private: System::Windows::Forms::PictureBox^ pictureBoxDrawSimple;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	private: System::Windows::Forms::CheckedListBox^ checkedListBoxFigures;
 
 
@@ -89,12 +93,12 @@ namespace CppCLRWinformsProjekt {
 	private: System::Windows::Forms::Label^ labelColor;
 	private: System::Windows::Forms::Button^ buttonMerge;
 	private: System::Windows::Forms::PictureBox^ pictureBoxShowHide;
-	private: System::Windows::Forms::GroupBox^ groupBox1;
-	private: System::Windows::Forms::GroupBox^ groupBox2;
-	private: System::Windows::Forms::PictureBox^ pictureBoxDrawPolygon;
-	private: System::Windows::Forms::Label^ label5;
-	private: System::Windows::Forms::Label^ label6;
-	private: System::Windows::Forms::TextBox^ textBoxPolygon;
+
+
+
+
+
+
 	private: System::Windows::Forms::GroupBox^ groupBox3;
 	private: System::Windows::Forms::PictureBox^ pictureBoxChangeColor;
 
@@ -105,10 +109,10 @@ namespace CppCLRWinformsProjekt {
 	private: System::Windows::Forms::Button^ buttonClear;
 	private: System::Windows::Forms::Button^ buttonPaint;
 	private: System::Windows::Forms::Button^ buttonRemove;
-	private: System::Windows::Forms::TextBox^ textBoxSimpleName;
-	private: System::Windows::Forms::Label^ label1;
-	private: System::Windows::Forms::TextBox^ textBoxPolygonName;
-	private: System::Windows::Forms::Label^ label2;
+
+
+
+
 	private: System::Windows::Forms::GroupBox^ groupBox4;
 	private: System::Windows::Forms::TextBox^ textBoxCompositeName;
 	private: System::Windows::Forms::Label^ label7;
@@ -120,8 +124,16 @@ namespace CppCLRWinformsProjekt {
 	private: System::Windows::Forms::Button^ buttonSave;
 	private: System::Windows::Forms::Button^ buttonLoad;
 	private: System::ComponentModel::IContainer^ components;
+	private: System::Windows::Forms::PictureBox^ pictureBoxDefComp;
+	private: System::Windows::Forms::GroupBox^ groupBox1;
 
-	protected:
+	private: System::Windows::Forms::PictureBox^ pictureBoxPolygonNotDef;
+	private: System::Windows::Forms::PictureBox^ pictureBoxSquareNotDef;
+	private: System::Windows::Forms::PictureBox^ pictureBoxCircleNotDef;
+private: System::Windows::Forms::TextBox^ textBoxCoord;
+
+	private: DefaultFigureFactory^ defFactory;
+	private: int count = 0;
 
 	private:
 		/// <summary>
@@ -138,17 +150,6 @@ namespace CppCLRWinformsProjekt {
 		{
 			this->components = (gcnew System::ComponentModel::Container());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			this->labelX = (gcnew System::Windows::Forms::Label());
-			this->labelY = (gcnew System::Windows::Forms::Label());
-			this->labelHeight = (gcnew System::Windows::Forms::Label());
-			this->labelWidth = (gcnew System::Windows::Forms::Label());
-			this->textBoxXCoord = (gcnew System::Windows::Forms::TextBox());
-			this->textBoxYCoord = (gcnew System::Windows::Forms::TextBox());
-			this->textBoxWidth = (gcnew System::Windows::Forms::TextBox());
-			this->textBoxHeight = (gcnew System::Windows::Forms::TextBox());
-			this->pictureBoxDrawSimple = (gcnew System::Windows::Forms::PictureBox());
-			this->radioButtonEllipse = (gcnew System::Windows::Forms::RadioButton());
-			this->radioButtonSquare = (gcnew System::Windows::Forms::RadioButton());
 			this->checkedListBoxFigures = (gcnew System::Windows::Forms::CheckedListBox());
 			this->panel3 = (gcnew System::Windows::Forms::Panel());
 			this->buttonAutoMove = (gcnew System::Windows::Forms::Button());
@@ -163,16 +164,6 @@ namespace CppCLRWinformsProjekt {
 			this->labelColor = (gcnew System::Windows::Forms::Label());
 			this->buttonMerge = (gcnew System::Windows::Forms::Button());
 			this->pictureBoxShowHide = (gcnew System::Windows::Forms::PictureBox());
-			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
-			this->textBoxSimpleName = (gcnew System::Windows::Forms::TextBox());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->textBoxPolygonName = (gcnew System::Windows::Forms::TextBox());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->pictureBoxDrawPolygon = (gcnew System::Windows::Forms::PictureBox());
-			this->label5 = (gcnew System::Windows::Forms::Label());
-			this->label6 = (gcnew System::Windows::Forms::Label());
-			this->textBoxPolygon = (gcnew System::Windows::Forms::TextBox());
 			this->groupBox3 = (gcnew System::Windows::Forms::GroupBox());
 			this->pictureBoxChangeColor = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBoxDrawCircle = (gcnew System::Windows::Forms::PictureBox());
@@ -187,19 +178,26 @@ namespace CppCLRWinformsProjekt {
 			this->timer = (gcnew System::Windows::Forms::Timer(this->components));
 			this->buttonSave = (gcnew System::Windows::Forms::Button());
 			this->buttonLoad = (gcnew System::Windows::Forms::Button());
+			this->pictureBoxDefComp = (gcnew System::Windows::Forms::PictureBox());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->textBoxCoord = (gcnew System::Windows::Forms::TextBox());
+			this->pictureBoxPolygonNotDef = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBoxSquareNotDef = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBoxCircleNotDef = (gcnew System::Windows::Forms::PictureBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDrawSimple))->BeginInit();
 			this->panel3->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxShowHide))->BeginInit();
-			this->groupBox1->SuspendLayout();
-			this->groupBox2->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDrawPolygon))->BeginInit();
 			this->groupBox3->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxChangeColor))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDrawCircle))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDrawSquare))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDrawTriangle))->BeginInit();
 			this->groupBox4->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDefComp))->BeginInit();
+			this->groupBox1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxPolygonNotDef))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxSquareNotDef))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxCircleNotDef))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// pictureBox1
@@ -211,102 +209,6 @@ namespace CppCLRWinformsProjekt {
 			this->pictureBox1->Size = System::Drawing::Size(617, 411);
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
-			// 
-			// labelX
-			// 
-			this->labelX->AutoSize = true;
-			this->labelX->Location = System::Drawing::Point(25, 80);
-			this->labelX->Name = L"labelX";
-			this->labelX->Size = System::Drawing::Size(29, 24);
-			this->labelX->TabIndex = 4;
-			this->labelX->Text = L"X:";
-			// 
-			// labelY
-			// 
-			this->labelY->AutoSize = true;
-			this->labelY->Location = System::Drawing::Point(28, 121);
-			this->labelY->Name = L"labelY";
-			this->labelY->Size = System::Drawing::Size(27, 24);
-			this->labelY->TabIndex = 5;
-			this->labelY->Text = L"Y:";
-			// 
-			// labelHeight
-			// 
-			this->labelHeight->AutoSize = true;
-			this->labelHeight->Location = System::Drawing::Point(220, 80);
-			this->labelHeight->Name = L"labelHeight";
-			this->labelHeight->Size = System::Drawing::Size(83, 24);
-			this->labelHeight->TabIndex = 6;
-			this->labelHeight->Text = L"Ширина:";
-			// 
-			// labelWidth
-			// 
-			this->labelWidth->AutoSize = true;
-			this->labelWidth->Location = System::Drawing::Point(220, 123);
-			this->labelWidth->Name = L"labelWidth";
-			this->labelWidth->Size = System::Drawing::Size(81, 24);
-			this->labelWidth->TabIndex = 7;
-			this->labelWidth->Text = L"Высота:";
-			// 
-			// textBoxXCoord
-			// 
-			this->textBoxXCoord->Location = System::Drawing::Point(61, 80);
-			this->textBoxXCoord->Name = L"textBoxXCoord";
-			this->textBoxXCoord->Size = System::Drawing::Size(151, 28);
-			this->textBoxXCoord->TabIndex = 8;
-			// 
-			// textBoxYCoord
-			// 
-			this->textBoxYCoord->Location = System::Drawing::Point(61, 118);
-			this->textBoxYCoord->Name = L"textBoxYCoord";
-			this->textBoxYCoord->Size = System::Drawing::Size(151, 28);
-			this->textBoxYCoord->TabIndex = 9;
-			// 
-			// textBoxWidth
-			// 
-			this->textBoxWidth->Location = System::Drawing::Point(307, 77);
-			this->textBoxWidth->Name = L"textBoxWidth";
-			this->textBoxWidth->Size = System::Drawing::Size(125, 28);
-			this->textBoxWidth->TabIndex = 10;
-			// 
-			// textBoxHeight
-			// 
-			this->textBoxHeight->Location = System::Drawing::Point(307, 120);
-			this->textBoxHeight->Name = L"textBoxHeight";
-			this->textBoxHeight->Size = System::Drawing::Size(125, 28);
-			this->textBoxHeight->TabIndex = 11;
-			// 
-			// pictureBoxDrawSimple
-			// 
-			this->pictureBoxDrawSimple->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->pictureBoxDrawSimple->Location = System::Drawing::Point(317, 154);
-			this->pictureBoxDrawSimple->Name = L"pictureBoxDrawSimple";
-			this->pictureBoxDrawSimple->Size = System::Drawing::Size(85, 77);
-			this->pictureBoxDrawSimple->TabIndex = 12;
-			this->pictureBoxDrawSimple->TabStop = false;
-			this->pictureBoxDrawSimple->Click += gcnew System::EventHandler(this, &Form1::pictureBox2_Click);
-			// 
-			// radioButtonEllipse
-			// 
-			this->radioButtonEllipse->AutoSize = true;
-			this->radioButtonEllipse->Location = System::Drawing::Point(31, 190);
-			this->radioButtonEllipse->Name = L"radioButtonEllipse";
-			this->radioButtonEllipse->Size = System::Drawing::Size(93, 28);
-			this->radioButtonEllipse->TabIndex = 1;
-			this->radioButtonEllipse->Text = L"эллипс";
-			this->radioButtonEllipse->UseVisualStyleBackColor = true;
-			// 
-			// radioButtonSquare
-			// 
-			this->radioButtonSquare->AutoSize = true;
-			this->radioButtonSquare->Checked = true;
-			this->radioButtonSquare->Location = System::Drawing::Point(31, 163);
-			this->radioButtonSquare->Name = L"radioButtonSquare";
-			this->radioButtonSquare->Size = System::Drawing::Size(168, 28);
-			this->radioButtonSquare->TabIndex = 0;
-			this->radioButtonSquare->TabStop = true;
-			this->radioButtonSquare->Text = L"прямоугольник";
-			this->radioButtonSquare->UseVisualStyleBackColor = true;
 			// 
 			// checkedListBoxFigures
 			// 
@@ -441,116 +343,6 @@ namespace CppCLRWinformsProjekt {
 			this->pictureBoxShowHide->TabStop = false;
 			this->pictureBoxShowHide->Click += gcnew System::EventHandler(this, &Form1::pictureBoxShowHide_Click);
 			// 
-			// groupBox1
-			// 
-			this->groupBox1->BackColor = System::Drawing::Color::DarkSeaGreen;
-			this->groupBox1->Controls->Add(this->textBoxSimpleName);
-			this->groupBox1->Controls->Add(this->label1);
-			this->groupBox1->Controls->Add(this->pictureBoxDrawSimple);
-			this->groupBox1->Controls->Add(this->labelX);
-			this->groupBox1->Controls->Add(this->radioButtonEllipse);
-			this->groupBox1->Controls->Add(this->labelWidth);
-			this->groupBox1->Controls->Add(this->radioButtonSquare);
-			this->groupBox1->Controls->Add(this->labelHeight);
-			this->groupBox1->Controls->Add(this->textBoxHeight);
-			this->groupBox1->Controls->Add(this->textBoxXCoord);
-			this->groupBox1->Controls->Add(this->textBoxWidth);
-			this->groupBox1->Controls->Add(this->labelY);
-			this->groupBox1->Controls->Add(this->textBoxYCoord);
-			this->groupBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->groupBox1->Location = System::Drawing::Point(933, 24);
-			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(479, 258);
-			this->groupBox1->TabIndex = 18;
-			this->groupBox1->TabStop = false;
-			this->groupBox1->Text = L"Стандартнные фигуры";
-			// 
-			// textBoxSimpleName
-			// 
-			this->textBoxSimpleName->Location = System::Drawing::Point(84, 37);
-			this->textBoxSimpleName->Name = L"textBoxSimpleName";
-			this->textBoxSimpleName->Size = System::Drawing::Size(348, 28);
-			this->textBoxSimpleName->TabIndex = 21;
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(27, 37);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(51, 24);
-			this->label1->TabIndex = 20;
-			this->label1->Text = L"Имя:";
-			// 
-			// groupBox2
-			// 
-			this->groupBox2->BackColor = System::Drawing::Color::Tan;
-			this->groupBox2->Controls->Add(this->textBoxPolygonName);
-			this->groupBox2->Controls->Add(this->label2);
-			this->groupBox2->Controls->Add(this->pictureBoxDrawPolygon);
-			this->groupBox2->Controls->Add(this->label5);
-			this->groupBox2->Controls->Add(this->label6);
-			this->groupBox2->Controls->Add(this->textBoxPolygon);
-			this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->groupBox2->Location = System::Drawing::Point(930, 288);
-			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(481, 225);
-			this->groupBox2->TabIndex = 19;
-			this->groupBox2->TabStop = false;
-			this->groupBox2->Text = L"Многоугольники";
-			// 
-			// textBoxPolygonName
-			// 
-			this->textBoxPolygonName->Location = System::Drawing::Point(100, 31);
-			this->textBoxPolygonName->Name = L"textBoxPolygonName";
-			this->textBoxPolygonName->Size = System::Drawing::Size(321, 28);
-			this->textBoxPolygonName->TabIndex = 23;
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(43, 31);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(51, 24);
-			this->label2->TabIndex = 22;
-			this->label2->Text = L"Имя:";
-			// 
-			// pictureBoxDrawPolygon
-			// 
-			this->pictureBoxDrawPolygon->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->pictureBoxDrawPolygon->Location = System::Drawing::Point(327, 131);
-			this->pictureBoxDrawPolygon->Name = L"pictureBoxDrawPolygon";
-			this->pictureBoxDrawPolygon->Size = System::Drawing::Size(85, 77);
-			this->pictureBoxDrawPolygon->TabIndex = 16;
-			this->pictureBoxDrawPolygon->TabStop = false;
-			this->pictureBoxDrawPolygon->Click += gcnew System::EventHandler(this, &Form1::pictureBoxDrawPolygon_Click);
-			// 
-			// label5
-			// 
-			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(38, 109);
-			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(341, 24);
-			this->label5->TabIndex = 17;
-			this->label5->Text = L"*нужно ввести в формате х1,у1;х2,у2";
-			// 
-			// label6
-			// 
-			this->label6->AutoSize = true;
-			this->label6->Location = System::Drawing::Point(35, 73);
-			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(68, 24);
-			this->label6->TabIndex = 14;
-			this->label6->Text = L"Точки:";
-			// 
-			// textBoxPolygon
-			// 
-			this->textBoxPolygon->Location = System::Drawing::Point(109, 69);
-			this->textBoxPolygon->Name = L"textBoxPolygon";
-			this->textBoxPolygon->Size = System::Drawing::Size(312, 28);
-			this->textBoxPolygon->TabIndex = 15;
-			// 
 			// groupBox3
 			// 
 			this->groupBox3->BackColor = System::Drawing::SystemColors::ActiveCaption;
@@ -580,7 +372,7 @@ namespace CppCLRWinformsProjekt {
 			// pictureBoxDrawCircle
 			// 
 			this->pictureBoxDrawCircle->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->pictureBoxDrawCircle->Location = System::Drawing::Point(422, 441);
+			this->pictureBoxDrawCircle->Location = System::Drawing::Point(383, 447);
 			this->pictureBoxDrawCircle->Name = L"pictureBoxDrawCircle";
 			this->pictureBoxDrawCircle->Size = System::Drawing::Size(91, 72);
 			this->pictureBoxDrawCircle->TabIndex = 21;
@@ -590,7 +382,7 @@ namespace CppCLRWinformsProjekt {
 			// pictureBoxDrawSquare
 			// 
 			this->pictureBoxDrawSquare->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->pictureBoxDrawSquare->Location = System::Drawing::Point(560, 441);
+			this->pictureBoxDrawSquare->Location = System::Drawing::Point(507, 447);
 			this->pictureBoxDrawSquare->Name = L"pictureBoxDrawSquare";
 			this->pictureBoxDrawSquare->Size = System::Drawing::Size(78, 72);
 			this->pictureBoxDrawSquare->TabIndex = 22;
@@ -600,7 +392,7 @@ namespace CppCLRWinformsProjekt {
 			// pictureBoxDrawTriangle
 			// 
 			this->pictureBoxDrawTriangle->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->pictureBoxDrawTriangle->Location = System::Drawing::Point(691, 441);
+			this->pictureBoxDrawTriangle->Location = System::Drawing::Point(619, 447);
 			this->pictureBoxDrawTriangle->Name = L"pictureBoxDrawTriangle";
 			this->pictureBoxDrawTriangle->Size = System::Drawing::Size(78, 72);
 			this->pictureBoxDrawTriangle->TabIndex = 23;
@@ -691,12 +483,75 @@ namespace CppCLRWinformsProjekt {
 			this->buttonLoad->UseVisualStyleBackColor = true;
 			this->buttonLoad->Click += gcnew System::EventHandler(this, &Form1::buttonLoad_Click);
 			// 
+			// pictureBoxDefComp
+			// 
+			this->pictureBoxDefComp->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->pictureBoxDefComp->Location = System::Drawing::Point(717, 447);
+			this->pictureBoxDefComp->Name = L"pictureBoxDefComp";
+			this->pictureBoxDefComp->Size = System::Drawing::Size(78, 72);
+			this->pictureBoxDefComp->TabIndex = 30;
+			this->pictureBoxDefComp->TabStop = false;
+			this->pictureBoxDefComp->Click += gcnew System::EventHandler(this, &Form1::pictureBoxDefComp_Click);
+			// 
+			// groupBox1
+			// 
+			this->groupBox1->BackColor = System::Drawing::Color::DarkSeaGreen;
+			this->groupBox1->Controls->Add(this->textBoxCoord);
+			this->groupBox1->Controls->Add(this->pictureBoxPolygonNotDef);
+			this->groupBox1->Controls->Add(this->pictureBoxSquareNotDef);
+			this->groupBox1->Controls->Add(this->pictureBoxCircleNotDef);
+			this->groupBox1->Location = System::Drawing::Point(941, 24);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(471, 285);
+			this->groupBox1->TabIndex = 32;
+			this->groupBox1->TabStop = false;
+			this->groupBox1->Text = L"Создать не по умолчанию";
+			// 
+			// textBoxCoord
+			// 
+			this->textBoxCoord->Location = System::Drawing::Point(28, 56);
+			this->textBoxCoord->Name = L"textBoxCoord";
+			this->textBoxCoord->Size = System::Drawing::Size(399, 22);
+			this->textBoxCoord->TabIndex = 35;
+			// 
+			// pictureBoxPolygonNotDef
+			// 
+			this->pictureBoxPolygonNotDef->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->pictureBoxPolygonNotDef->Location = System::Drawing::Point(325, 107);
+			this->pictureBoxPolygonNotDef->Name = L"pictureBoxPolygonNotDef";
+			this->pictureBoxPolygonNotDef->Size = System::Drawing::Size(78, 72);
+			this->pictureBoxPolygonNotDef->TabIndex = 33;
+			this->pictureBoxPolygonNotDef->TabStop = false;
+			this->pictureBoxPolygonNotDef->Click += gcnew System::EventHandler(this, &Form1::pictureBoxPolygonNotDef_Click);
+			// 
+			// pictureBoxSquareNotDef
+			// 
+			this->pictureBoxSquareNotDef->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->pictureBoxSquareNotDef->Location = System::Drawing::Point(213, 107);
+			this->pictureBoxSquareNotDef->Name = L"pictureBoxSquareNotDef";
+			this->pictureBoxSquareNotDef->Size = System::Drawing::Size(78, 72);
+			this->pictureBoxSquareNotDef->TabIndex = 32;
+			this->pictureBoxSquareNotDef->TabStop = false;
+			this->pictureBoxSquareNotDef->Click += gcnew System::EventHandler(this, &Form1::pictureBoxSquareNotDef_Click);
+			// 
+			// pictureBoxCircleNotDef
+			// 
+			this->pictureBoxCircleNotDef->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->pictureBoxCircleNotDef->Location = System::Drawing::Point(89, 107);
+			this->pictureBoxCircleNotDef->Name = L"pictureBoxCircleNotDef";
+			this->pictureBoxCircleNotDef->Size = System::Drawing::Size(91, 72);
+			this->pictureBoxCircleNotDef->TabIndex = 31;
+			this->pictureBoxCircleNotDef->TabStop = false;
+			this->pictureBoxCircleNotDef->Click += gcnew System::EventHandler(this, &Form1::pictureBoxCircleNotDef_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::None;
 			this->ClientSize = System::Drawing::Size(1424, 734);
+			this->Controls->Add(this->groupBox1);
+			this->Controls->Add(this->pictureBoxDefComp);
 			this->Controls->Add(this->buttonLoad);
 			this->Controls->Add(this->buttonSave);
 			this->Controls->Add(this->groupBox4);
@@ -707,23 +562,15 @@ namespace CppCLRWinformsProjekt {
 			this->Controls->Add(this->pictureBoxDrawSquare);
 			this->Controls->Add(this->pictureBoxDrawCircle);
 			this->Controls->Add(this->groupBox3);
-			this->Controls->Add(this->groupBox2);
-			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->panel3);
 			this->Controls->Add(this->checkedListBoxFigures);
 			this->Controls->Add(this->pictureBox1);
 			this->Name = L"Form1";
 			this->Text = L"Painter";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDrawSimple))->EndInit();
 			this->panel3->ResumeLayout(false);
 			this->panel3->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxShowHide))->EndInit();
-			this->groupBox1->ResumeLayout(false);
-			this->groupBox1->PerformLayout();
-			this->groupBox2->ResumeLayout(false);
-			this->groupBox2->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDrawPolygon))->EndInit();
 			this->groupBox3->ResumeLayout(false);
 			this->groupBox3->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxChangeColor))->EndInit();
@@ -732,6 +579,12 @@ namespace CppCLRWinformsProjekt {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDrawTriangle))->EndInit();
 			this->groupBox4->ResumeLayout(false);
 			this->groupBox4->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxDefComp))->EndInit();
+			this->groupBox1->ResumeLayout(false);
+			this->groupBox1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxPolygonNotDef))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxSquareNotDef))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxCircleNotDef))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -740,109 +593,39 @@ namespace CppCLRWinformsProjekt {
 
 	//========================================
 	//default buttons
-	private: System::Void pictureBoxDrawCircle_Click(System::Object^ sender, System::EventArgs^ e) {
-		Point point(150.0, 20.0);
-		float width = 50.0;
-		float height = 50.0;
-		String^ name = "DEFAULT CIRCLE";
+	private: System::Void pictureBoxDrawCircle_Click(System::Object^ sender, System::EventArgs^ e) {		
 
-		Figure^ circle = gcnew Circle(name, point, Color::Green, width, height);
+		count++;
+		Figure^ circle = defFactory->GetDefaultFigure(defFactory->CIRCLE_NAME);
+		circle->Name += count;
 		Scene::AddFigure(circle);
 
 		checkedListBoxFigures->Items->Add(circle->Name);
-		Scene::Clear(pictureBox1);
 		Scene::Draw(pictureBox1);
 	}
 	private: System::Void pictureBoxDrawSquare_Click(System::Object^ sender, System::EventArgs^ e) {
-		
-		Point point(20.0, 20.0);
-		float width = 50.0;
-		float height = 50.0;
-		String^ name = "DEFAULT SQUARE";
 
-		Figure^ square = gcnew Square(name, point, Color::Red, width, height);
+		count++;
+		Figure^ square = defFactory->GetDefaultFigure(defFactory->SQUARE_NAME);
+		square->Name += count;
 		Scene::AddFigure(square);
 
 		checkedListBoxFigures->Items->Add(square->Name);
-		Scene::Clear(pictureBox1);
 		Scene::Draw(pictureBox1);
 	}
 	private: System::Void pictureBoxDrawTriangle_Click(System::Object^ sender, System::EventArgs^ e) {
-
-		Point point1(100, 100);
-		Point point2(200, 130);
-		Point point3(150, 200);
-		String^ name = "DEFAULT TRIANGLE";
-
-		List<Point>^ points = gcnew List<Point>;
-		points->Add(point1);
-		points->Add(point2);
-		points->Add(point3);
-
-		Figure^ polygon = gcnew Polygon(name, Color::Blue,points);
+		count++;
+		Figure^ polygon = defFactory->GetDefaultFigure(defFactory->TRIANGLE_NAME);
+		polygon->Name += count;
 		Scene::AddFigure(polygon);
 
 		checkedListBoxFigures->Items->Add(polygon->Name);
-		Scene::Clear(pictureBox1);
 		Scene::Draw(pictureBox1);
 	}
 	//========================================
 
 	//========================================
 	//custom figures buttons
-	private: System::Void pictureBox2_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (textBoxSimpleName->Text == "")
-		{
-			MessageBox::Show("Введите имя");
-			return;
-		}
-
-		float x = Convert::ToSingle(textBoxXCoord->Text);
-		float y = Convert::ToSingle(textBoxYCoord->Text);
-		Point point(x, y);
-
-		float width = Convert::ToSingle(textBoxWidth->Text);
-		float height = Convert::ToSingle(textBoxHeight->Text);
-
-		String^ name = textBoxSimpleName->Text;
-		Figure^ figure;
-		if (radioButtonSquare->Checked)
-		{
-			figure = gcnew Square(name, point, Color::Red, width, height);
-		}
-		else
-		{
-			figure = gcnew Circle(name, point, Color::Green, width, height);
-		}
-		Scene::AddFigure(figure);
-
-		checkedListBoxFigures->Items->Add(figure->Name);
-		Scene::Draw(pictureBox1);
-	}
-	private: System::Void pictureBoxDrawPolygon_Click(System::Object^ sender, System::EventArgs^ e) {
-			
-		if (textBoxPolygonName->Text == "")
-		{
-			MessageBox::Show("Введите имя");
-			return;
-		}
-
-		List<Point>^ points = gcnew List<Point>;
-
-		for each (String ^ coords in textBoxPolygon->Text->Split({ ';' }))
-		{
-			cli::array<String^>^ coordXY = coords->Split({ ',' });
-
-			Point point(Convert::ToSingle(coordXY[0]), Convert::ToSingle(coordXY[1]));
-			points->Add(point);
-		}
-
-		Figure^ polygon = gcnew Polygon(textBoxPolygonName->Text, Color::Blue, points);
-		Scene::AddFigure(polygon);
-
-		checkedListBoxFigures->Items->Add(polygon->Name);
-		Scene::Draw(pictureBox1);
-	}
 	//========================================
 	
 	//clear graphic
@@ -1014,6 +797,84 @@ namespace CppCLRWinformsProjekt {
 		}
 
 		Scene::Draw(pictureBox1);
+	}
+	private: System::Void pictureBoxDefComp_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		count++;
+		Figure^ comp = defFactory->GetDefaultFigure(defFactory->COMPOSITE_NAME);
+		comp->Name += count;
+		Scene::AddFigure(comp);
+
+		checkedListBoxFigures->Items->Add(comp->Name);
+		Scene::Draw(pictureBox1);
+	}
+	private: System::Void pictureBoxCircleNotDef_Click(System::Object^ sender, System::EventArgs^ e) {
+		count++;
+		Figure^ circle = defFactory->GetDefaultFigure(defFactory->CIRCLE_NAME);
+		circle->Name += count;
+
+		List<Point>^ points = gcnew List<Point>;
+
+		for each (String ^ coords in textBoxCoord->Text->Split({ ' ' }))
+		{
+			if (coords != "") 
+			{
+				cli::array<String^>^ coordXY = coords->Split({ ',' });
+
+				Point point(Convert::ToSingle(coordXY[0]), Convert::ToSingle(coordXY[1]));
+				points->Add(point);
+			}
+		}
+		Scene::AddFigure(circle);
+
+		checkedListBoxFigures->Items->Add(circle->Name);
+		Scene::Draw(pictureBox1,circle->Name, points[0].X, points[0].Y);
+	}
+	private: System::Void pictureBoxSquareNotDef_Click(System::Object^ sender, System::EventArgs^ e) {
+		count++;
+		Figure^ square = defFactory->GetDefaultFigure(defFactory->SQUARE_NAME);
+		square->Name += count;
+
+		List<Point>^ points = gcnew List<Point>;
+
+		for each (String ^ coords in textBoxCoord->Text->Split({ ' ' }))
+		{
+			if (coords != "")
+			{
+				cli::array<String^>^ coordXY = coords->Split({ ',' });
+
+				Point point(Convert::ToSingle(coordXY[0]), Convert::ToSingle(coordXY[1]));
+				points->Add(point);
+			}
+		}
+
+		Scene::AddFigure(square);
+
+		checkedListBoxFigures->Items->Add(square->Name);
+		Scene::Draw(pictureBox1, square->Name, points[0].X, points[0].Y);
+	}
+	private: System::Void pictureBoxPolygonNotDef_Click(System::Object^ sender, System::EventArgs^ e) {
+		count++;
+		Figure^ polygon = defFactory->GetDefaultFigure(defFactory->TRIANGLE_NAME);
+		polygon->Name += count;
+
+		List<Point>^ points = gcnew List<Point>;
+
+		for each (String ^ coords in textBoxCoord->Text->Split({ ' ' }))
+		{
+			if (coords != "")
+			{
+				cli::array<String^>^ coordXY = coords->Split({ ',' });
+
+				Point point(Convert::ToSingle(coordXY[0]), Convert::ToSingle(coordXY[1]));
+				points->Add(point);
+			}
+		}
+
+		Scene::AddFigure(polygon);
+
+		checkedListBoxFigures->Items->Add(polygon->Name);
+		Scene::Draw(pictureBox1, polygon->Name, points[0].X, points[0].Y);
 	}
 };
 }

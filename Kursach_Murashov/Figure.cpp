@@ -64,3 +64,8 @@ void Figure::ChangeAutoCoef()
 {
 	AutoCoef *= -1;
 }
+
+void Figure::Draw(System::Drawing::Graphics^ g, float x, float y)
+{
+	throw gcnew System::NotImplementedException();
+}

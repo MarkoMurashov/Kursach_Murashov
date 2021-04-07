@@ -135,3 +135,20 @@ void Polygon::Deformation()
 	deformPoints = points;
 	points = deformPoints;	
 }
+
+void Polygon::Draw(System::Drawing::Graphics^ g, float x, float y)
+{
+	List<Point>^ newPoint = gcnew List<Point>;
+	for each (Point p in points)
+	{
+		Point newP(p.X + x, p.Y + y);
+		newPoint->Add(newP);
+	}
+
+	points = newPoint;
+
+	Brush^ brush = gcnew SolidBrush(CurrentColor);
+
+	g->FillPolygon(brush, newPoint->ToArray());
+	g->DrawPolygon(gcnew Pen(System::Drawing::Color::Black), newPoint->ToArray());
+}

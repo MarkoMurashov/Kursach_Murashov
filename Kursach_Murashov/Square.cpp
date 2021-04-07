@@ -65,3 +65,11 @@ void Square::Deformation()
 	height = deformHeight;
 	deformHeight = tmp;
 }
+
+void Square::Draw(System::Drawing::Graphics^ g, float x, float y)
+{
+	Brush^ brush = gcnew SolidBrush(CurrentColor);
+
+	g->FillRectangle(brush, x, y, width, height);
+	g->DrawRectangle(gcnew Pen(System::Drawing::Color::Black), x, y, width, height);
+}

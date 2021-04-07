@@ -24,6 +24,7 @@ public:
 	static Figure^ FindFigure(String^ name);
 	static void Draw(PictureBox^ pb);
 	static void Draw(PictureBox^ pb, String^ name);
+	static void Draw(PictureBox^ pb, String^ name, float x, float y);
 	static void ChangeFiguresColor(String^ name, Color color);
 	static void HideFigure(String^ name);
 	static void Move(String^ name, float x, float y);

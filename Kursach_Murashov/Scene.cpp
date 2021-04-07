@@ -64,11 +64,6 @@ void Scene::Draw(PictureBox^ pb)
    for each (Figure^ f in _scene.figures)
    {
 
-       if (Influence(f->Name))
-       {
-           f->Deformation();
-       }
-
       if(!f->IsHidden)
         f->Draw(_scene.graphics);
    }
@@ -80,14 +75,24 @@ void Scene::Draw(PictureBox^ pb, String^ name)
 {
     for each (Figure ^ f in _scene.figures)
     {      
-        if (Influence(f->Name) && !f->IsHidden)
-        {
-            f->Deformation();
-        }
+
 
         if(f->Name == name && !f->IsHidden)
             f->Draw(_scene.graphics);
        
+    }
+
+    pb->Image = _scene.bitmap;
+}
+
+void Scene::Draw(PictureBox^ pb, String^ name, float x, float y)
+{
+    for each (Figure ^ f in _scene.figures)
+    {
+        if (f->Name == name && !f->IsHidden)
+        {
+            f->Draw(_scene.graphics, x, y);
+        }
     }
 
     pb->Image = _scene.bitmap;
@@ -119,7 +124,7 @@ void Scene::Move(String^ name, float x, float y)
         {
             f->Move(x, y, _scene.bitmap->Width, _scene.bitmap->Height);
         }
-    }
+    } 
 }
 
 void Scene::Reset(String^ name)
